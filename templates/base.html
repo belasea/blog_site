@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Jayed Hossain Jibon {% endblock title %}</title>
+
+    <link
+      rel="shortcut icon"
+      href="img/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Nunito:300,400,600,700|Poppins:300,400,500,600,700"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome 5 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static "css/main.css" %} %}"/>
+  </head>
+
+  <body>
+
+    <!-- header-top -->
+    <section class="header-top">
+      <section class="topbar d-flex align-items-center">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+          <!-- Contact Info -->
+          <div class="contact_info d-flex align-items-center">
+            <i class="fa fa-envelope d-flex align-items-center">
+              <a href="mailto:jayed.swe@gmail.com" class="mx-1"
+                >jayed.swe@gmail.com</a
+              >
+            </i>
+            <a
+              href="tel:019871-32107"
+              class="d-flex align-items-center ms-4 text-decoration-none"
+            >
+              <i class="fa fa-phone me-2"></i>
+              <span>019871-32107</span>
+            </a>
+          </div>
+          <!-- Social Links -->
+          <div class="social_links d-none d-md-flex align-items-center">
+            <a
+              href="https://www.facebook.com/jibon969"
+              class="navLink text-dark"
+            >
+              <i class="fab fa-facebook text-dark"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/jibon969/" class="navLink">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="navLink">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://github.com/jibon969/" class="navLink">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Navbar -->
+    <section class="sticky-top">
+      <div class="header">
+        <nav class="headerBackground navbar navbar-expand-lg navbar-dark">
+          <div class="container">
+            <a href="#" class="navbar-brand">Jayed Hossain</a>
+            <button
+              type="button"
+              class="navbar-toggler"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarCollapse"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+              <div class="navbar-nav">
+                <a href="index.html" class="navItem nav-item nav-link text-white">Home</a>
+                <a href="#about" class="navItem nav-item nav-link text-white">
+                  About</a>
+                <a
+                  href="#experience"
+                  class="navItem nav-item nav-link text-white"
+                  >Experience</a
+                >
+                <a
+                  href="skills.html"
+                  class="navItem nav-item nav-link text-white"
+                  >Skills</a
+                >
+                <a href="#projects" class="navItem nav-item nav-link text-white"
+                  >Projects</a
+                >
+                <a href="#services" class="navItem nav-item nav-link text-white"
+                  >Services</a
+                >
+                <a href="#blog" class="navItem nav-item nav-link text-white"
+                  >Blog</a
+                >
+                <a href="#contact" class="navItem nav-item nav-link text-white"
+                  >Contact</a
+                >
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    {% block content %}
+
+
+    {% endblock %}
+
+    <!--== Footer Section ==-->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="row">
+          <!-- About + Social -->
+          <div class="col-lg-4 col-sm-6">
+            <div class="singleFooterWidget">
+              <p>
+                I'm always happy to hear from you. If you have any questions,
+                suggestions or opinions, please do not hesitate to reach out to
+                me.
+              </p>
+              <ul class="list-unstyled">
+                <li class="socialMedia list-inline-item">
+                  <a href="https://www.facebook.com/jibon969">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                </li>
+                <li class="socialMedia list-inline-item">
+                  <a href="https://www.linkedin.com/in/jibon969/">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="socialMedia list-inline-item">
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li class="socialMedia list-inline-item">
+                  <a href="https://github.com/jibon969/">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Explore -->
+          <div class="col-lg-2 col-sm-6">
+            <div class="singleFooterWidget pl-5">
+              <h3>Explore</h3>
+              <ul class="footerLinksList">
+                <li><a href="/home.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Resources -->
+          <div class="col-lg-2 col-sm-6">
+            <div class="singleFooterWidget">
+              <h3>Resources</h3>
+              <ul class="footerLinksList">
+                <li><a href="#services">My Services</a></li>
+                <li><a href="#blog">My Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- Address -->
+          <div class="col-lg-4 col-sm-6">
+            <div class="singleFooterWidget">
+              <h3>Address</h3>
+              <ul class="footerLinksList">
+                <li>Eastern Kamalapur Complex - Dhaka, Bangladesh</li>
+                <li>Email: jayed.swe@gmail.com</li>
+                <li>Phone: <a href="+88 0198-7132107">+88 0198-7132107</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="footerBottomArea">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="text-center">
+                <div class="fw-bold">
+                  Copyright &copy; <strong>Jayed Hossain</strong> —
+                  <a
+                    target="_blank"
+                    href="https://belasea.github.io/jibon/blog.html"
+                    >All Rights Reserved</a
+                  >
+                </div>
+                <small class="text-dark"
+                  >Designed & Developed by Jayed Hossain</small
+                >
+              </div>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6">
+              <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms &amp; Conditions</a></li>
+              </ul>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- Footer Map -->
+      <div class="footerMap">
+        <img src="img/footer/footer-map.png" alt="Map" />
+      </div>
+    </footer>
+
+    <!-- Added Js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  </body>
+</html>
