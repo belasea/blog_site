@@ -1,0 +1,87 @@
+{% extends 'accounts/base_account.html' %}
+{% load static %}
+{% block title %} Login - {{block.super}} {% endblock %}
+
+{% block content %}
+
+    <section class="login">
+         <section class="d-flex align-items-center" style="min-height: 100vh;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <!-- Message -->
+                        <div class="text-center">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="main-form">
+                            <div class="card mb-2">
+                                <h5 class="card-header text-center">
+                                    <a href="{% url 'home' %}" class="text-decoration-none fw-bold" style="font-size:24px">
+                                        Smart Mailer
+                                    </a>
+                                </h5>
+                                <div class="card-body">
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <br>
+                                        <!-- Email Address -->
+                                        <div class="form-group mb-4">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                                <input type="email" name="email" class="form-control" placeholder="Enter your email">
+                                            </div>
+                                        </div>
+                                        <!-- Password -->
+                                        <div class="form-group mb-3">
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                                <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Password">
+                                                <span class="input-group-text" style="cursor: pointer;" onclick="togglePassword()">
+                                                    <i class="fa fa-eye" id="toggleIcon"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="find-btn">
+                                                 <i class="fas fa-sign-in-alt"></i> Login
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                Don't have an account ?
+                                <a href="{% url 'register' %}" class="mx-2"> Create one here</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
+
+
+{% endblock content %}
