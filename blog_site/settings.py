@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd party library
+    'import_export',
 ]
 
 # Custom User Model
