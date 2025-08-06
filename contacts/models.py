@@ -5,7 +5,7 @@ class Contact(models.Model):
     subject = models.CharField(max_length=250, blank=True, null=True)
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=15, blank=True)
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
     message = models.TextField()
     is_message_send = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True, db_index=True)

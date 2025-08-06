@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import RegisterForm, LoginForm, UserUpdateForm
 from .models import User
 from notification.models import Notification
-from smart_mailer.local_settings import BASE_URL
+from blog_site.local_settings import BASE_URL
   
 
 def register_view(request):

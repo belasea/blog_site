@@ -4,6 +4,7 @@
 {% block title %} Home - {{block.super}} {% endblock %}
 
 {% block content %}
+
     <!--Home-->
     <section id="home">
       <div class="container">
@@ -80,11 +81,7 @@
                 <i class="fas fa-smile hello-icon"></i>
                 Hey, Hello
               </span>
-              <img
-                src="img/team/jibon.png"
-                class="img-fluid"
-                alt="img is missing"
-              />
+              <img src="{% static "img/team/jibon.png" %}" class="img-fluid" alt="img is missing"/>
             </div>
           </div>
         </div>
@@ -105,11 +102,8 @@
           <div class="col-md-6 mb-3">
             <div class="who-iam-img">
               <img
-                src="img/team/who.png"
-                alt=""
-                class="img-fluid animated-person"
-                style="height: 340px"
-              />
+                src="{% static "img/team/who.png" %}" alt="img is missing" class="img-fluid animated-person"
+                style="height: 340px"/>
             </div>
             <div class="professional-focus">
               <h5 class="professional-title">
@@ -191,7 +185,7 @@
                 <div class="d-flex align-items-center">
                   <h4 class="rounded border">
                     <img
-                      src="img/logo/belasea.png"
+                      src="{% static "img/logo/belasea.png" %}"
                       class="job-card-img img-fluid"
                       alt="img is missing"
                     />
@@ -384,213 +378,32 @@
         <div class="show-project">
           <div class="row">
             <!-- Belasea -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/belasea.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/belasea.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a href="https://belasea.com/" target="_blank">
-                        Belasea eCommerce</a
-                      >
-                    </h5>
+            {% for project in projects %}
+              <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm project-card">
+                  {% if project.image %}
+                     <img src="{{ project.image.url }}" class="project-img img-fluid"
+                      data-bs-toggle="modal"
+                      data-bs-target="#imageModal"
+                      data-bs-image="{{ project.image.url }}"
+                      alt="{{ project.title }}">
+                  {% endif %}
+                  <div class="card-body pb-3 mt-1">
+                    <div class="project-description">
+                      <h5>
+                        {% if project.url_link %}
+                          <a href="{{ project.url_link }}" target="_blank">View Project</a>
+                        {% else %}
+                          <a href="#" target="_blank">
+                            {{ project.title }}
+                          </a>
+                        {% endif %}
+                      </h5>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- belaface -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/belaface.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/belaface.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a href="https://belaface.be/" target="_blank">
-                        Wholesale eCommerce</a
-                      >
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- eShop -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/eShop.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/eShop.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a
-                        href="https://jibon969.github.io/eShop/"
-                        target="_blank"
-                      >
-                        eShop eCommerce</a
-                      >
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Prairie Western -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/prairiewestern.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/prairiewestern.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a href="https://www.prairiewestern.ca/" target="_blank">
-                        Prairie Western College
-                      </a>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Simple Complex -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/simple-complex.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/simple-complex.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a href="#" target="_blank"> HRMS </a>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Prairie Western -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/student-grade.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/student-grade.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a href="https://pwcollege.ca/" target="_blank">
-                        Student Grade System
-                      </a>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Simple Complex  -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/smart-mailer.png"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/smart-mailer.png"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a href="http://152.42.182.18/" target="_blank">
-                        Smart Mailer
-                      </a>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- belasea app  -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/belasea-app.webp"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/belasea-app.webp"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a
-                        href="https://play.google.com/store/apps/details?id=com.belasea"
-                        target="_blank"
-                      >
-                        Belasea App
-                      </a>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- belaface app  -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100 shadow-sm project-card">
-                <img
-                  src="img/project/belaface-app.webp"
-                  class="project-img img-fluid"
-                  data-bs-toggle="modal"
-                  data-bs-target="#imageModal"
-                  data-bs-image="img/project/belaface-app.webp"
-                  alt="image is missing"
-                />
-                <div class="card-body pb-3 mt-1">
-                  <div class="project-description">
-                    <h5>
-                      <a
-                        href="https://play.google.com/store/apps/developer?id=Belasea"
-                        target="_blank"
-                      >
-                        Belaface App
-                      </a>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
           <div
             class="modal fade"
@@ -627,167 +440,65 @@
 
     <!--==== services ===-->
     <section id="services">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="service-title">
-              <h2 class="main-title">My Services</h2>
-              <h6>
-                Choose a service to get started and unlock your data potential
-                with customized solutions.
-              </h6>
+      {% if services %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="service-title">
+                <h2 class="main-title">My Services</h2>
+                <h6>
+                  Choose a service to get started and unlock your data potential
+                  with customized solutions.
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            {% for service in services %}
+              <div class="col-md-6 mb-4">
+                <div class="card custom-shadow">
+                  <div class="card-body">
+                    <div class="service-sub-title">
+                      <h5 class="mt-3">
+                        {% if service.icon %}
+                          <i class="{{ service.icon }} border rounded p-3"></i>
+                        {% else %}
+                          <i class="fa fa-check me-2"></i>
+                        {% endif %}
+                      </h5>
+                      <h3>{{ service.title }}</h3>
+                    </div>
+                    <div class="service-list">
+                      <ul class="list-unstyled">
+                        {% for item in service.items.all %}
+                          <li class="mb-2">
+                            <i class="fa fa-check me-2"></i>
+                            {{ item.description }}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      <div class="text-end mb-3">
+                        <a href="#contact" class="defaultBtn">Connect Me</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <p class="text-center">No services found.</p>
+              <hr>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <div class="card custom-shadow">
-              <div class="card-body">
-                <div class="service-sub-title">
-                  <h5 class="mt-3">
-                    <i class="fa fa-code border rounded p-3"></i>
-                  </h5>
-                  <h3>Software Development</h3>
-                </div>
-                <div class="service-list">
-                  <ul class="list-unstyled">
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      E-commerce platform with user accounts and payment
-                      integration.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Point of Sale (POS) System with barcode scanning support.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Product Comparison Tool for online stores.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Dropshipping Management Software.
-                    </li>
-                  </ul>
-                  <div class="text-end mb-3">
-                    <a href="#contact" class="defaultBtn">Connect Me</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card custom-shadow">
-              <div class="card-body">
-                <div class="service-sub-title">
-                  <h5 class="mt-3">
-                    <i class="fa fa-mobile-alt border rounded p-3"></i>
-                  </h5>
-                  <h3>Mobile App Development</h3>
-                </div>
-                <div class="service-list">
-                  <ul class="list-unstyled">
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Cross-platform E-commerce App with secure checkout.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      POS Mobile App with real-time inventory tracking.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Delivery Tracking App using maps and push notifications.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Social Media App with chat, feed, and likes system.
-                    </li>
-                  </ul>
-                  <div class="text-end mb-3">
-                    <a href="#contact" class="defaultBtn">Connect Me</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card custom-shadow">
-              <div class="card-body">
-                <div class="service-sub-title">
-                  <h5 class="mt-3">
-                    <i class="fa fa-server border rounded p-3"></i>
-                  </h5>
-                  <h3>DevOps Services</h3>
-                </div>
-                <div class="service-list">
-                  <ul class="list-unstyled">
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      CI/CD pipeline setup with GitHub Actions, GitLab CI, or
-                      Jenkins.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Docker containerization and Kubernetes deployment.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Cloud infrastructure setup on AWS, Digital Ocean, or
-                      Google Cloud.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Monitoring & logging with Prometheus, Grafana, and ELK
-                      stack.
-                    </li>
-                  </ul>
-                  <div class="text-end mb-3">
-                    <a href="#contact" class="defaultBtn">Connect Me</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card custom-shadow">
-              <div class="card-body">
-                <div class="service-sub-title">
-                  <h5 class="mt-3">
-                    <i class="fa fa-server border rounded p-3"></i>
-                  </h5>
-                  <h3>Database Support</h3>
-                </div>
-                <div class="service-list">
-                  <ul class="list-unstyled">
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Database design and schema optimization for performance..
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Backup and disaster recovery setup for MySQL, PostgreSQL,
-                      and MongoDB.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      High availability and replication configuration.
-                    </li>
-                    <li class="mb-2">
-                      <i class="fa fa-check me-2"></i>
-                      Query performance tuning and indexing strategies.
-                    </li>
-                  </ul>
-                  <div class="text-end mb-3">
-                    <a href="#contact" class="defaultBtn">Connect Me</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% endif %}
     </section>
+
 
     <!--===Blog ===-->
     <section id="blog">
@@ -796,7 +507,7 @@
           <h2 class="main-title">My Blog</h2>
           <p class="blog_sub_title">
             Explore my blog featuring Python, Django, and Django REST Framework
-            projects, showcasing expertise in backend development, <br />
+            projects, showcasing expertise in backend development, <br/>
             API design, database management with SQL, and more.
           </p>
         </div>
@@ -1011,39 +722,57 @@
             <div class="col-12 col-md-6 mb-4">
               <div class="write-message p-4 h-100">
                 <form action="#" method="post">
+                  {% csrf_token %}
                   <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <input
-                        type="text"
-                        name="name"
-                        class="form-control"
-                        placeholder="Your Name"
-                        required
-                      />
+                    <div class="col">
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          name="subject"
+                          class="form-control"
+                          placeholder="Subject"
+                          required
+                        />
+                      </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          name="name"
+                          class="form-control"
+                          placeholder="Full Name"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-md-6 mb-3">
                       <input
                         type="email"
                         name="email"
                         class="form-control"
-                        placeholder="Your Email"
+                        placeholder="E-mail"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <input
+                        type="text"
+                        name="phone"
+                        class="form-control"
+                        placeholder="Phone"
                         required
                       />
                     </div>
                   </div>
                   <div class="mb-3">
-                    <input
-                      type="text"
-                      name="subject"
-                      class="form-control"
-                      placeholder="Subject"
-                      required
-                    />
-                  </div>
-                  <div class="mb-3">
                     <textarea
                       name="message"
-                      rows="6"
+                      rows="4"
                       class="form-control"
                       placeholder="Write Your Message ..."
                       required
@@ -1061,6 +790,8 @@
         </div>
       </div>
     </section>
+
+
 {% endblock %}
 
     

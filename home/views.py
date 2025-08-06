@@ -1,6 +1,13 @@
 from django.shortcuts import render
+from .models import Project,  MyService
 
 # Create your views here.
 
 def home(request):
-    return render(request, "home/index.html")
+    services = MyService.objects.prefetch_related('items').all()
+    projects = Project.objects.all()
+    context = {
+        'projects': projects,
+        'services': services 
+    }
+    return render(request, "home/index.html", context)
