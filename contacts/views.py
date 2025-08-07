@@ -14,7 +14,58 @@ from datetime import datetime
 from blog_site.local_settings import BASE_URL
 
 
-# Contact Page ====================================================
+import re
+
+EMAIL_REGEX = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+
+def contact(request):
+    errors = []
+
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # Validate fields manually
+        if not name or name.lower() == "hi" or name.isdigit():
+            errors.append("Please provide a valid name.")
+
+        if email and not re.match(EMAIL_REGEX, email):
+            errors.append("Invalid email format.")
+
+        if not message:
+            errors.append("Message cannot be empty.")
+
+        if not errors:
+            contact_obj = Contact.objects.create(
+                subject=subject,
+                name=name,
+                phone=phone,
+                email=email,
+                message=message,
+                is_message_send=True
+            )
+            contact_obj.save()
+            messages.add_message(request, messages.SUCCESS, "Success! Thank you for your message.")
+
+            try:
+                link = BASE_URL + "/contact-list"
+            except:
+                link = None
+
+            notification = Notification(user=request.user, message=f'Created: {subject}', link=link)
+            notification.save()
+
+            return redirect('home')
+
+    context = {
+        'errors': errors
+    }
+    return render(request, 'home/index.html', context)
+
+# # Contact Page ====================================================
 # def contact(request):
 #     """
 #     Renders the contact form and handles form submission.
@@ -52,35 +103,35 @@ from blog_site.local_settings import BASE_URL
 #     return render(request, 'home/index.html', context)
 
 
-def contact(request):
-    if request.method == "POST":
-        subject = request.POST.get("subject")
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        phone = request.POST.get("phone")
-        message = request.POST.get("message")
+# def contact(request):
+#     if request.method == "POST":
+#         subject = request.POST.get("subject")
+#         name = request.POST.get("name")
+#         email = request.POST.get("email")
+#         phone = request.POST.get("phone")
+#         message = request.POST.get("message")
 
-        if subject and name and email and message:
-            contact = Contact.objects.create(
-                subject=subject,
-                name=name,
-                email=email,
-                phone=phone,
-                message=message
-            )
+#         if subject and name and email and message:
+#             contact = Contact.objects.create(
+#                 subject=subject,
+#                 name=name,
+#                 email=email,
+#                 phone=phone,
+#                 message=message
+#             )
 
-            Notification.objects.create(
-                user=request.user,
-                message=f"Created: {contact.subject}",
-                link=f"{BASE_URL}/contact-list"
-            )
+#             Notification.objects.create(
+#                 user=request.user,
+#                 message=f"Created: {contact.subject}",
+#                 link=f"{BASE_URL}/contact-list"
+#             )
 
-            messages.success(request, "Success! Thank you for your message.")
-            return redirect("home")
-        else:
-            messages.error(request, "All required fields must be filled out.")
+#             messages.success(request, "Success! Thank you for your message.")
+#             return redirect("home")
+#         else:
+#             messages.error(request, "All required fields must be filled out.")
 
-    return render(request, "home/index.html")
+#     return render(request, "home/index.html")
 
 
 # Contact List CRUD =================================================

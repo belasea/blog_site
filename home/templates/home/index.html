@@ -7,85 +7,133 @@
 
     <!--Home-->
     <section id="home">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <div class="my_info">
-              <p>WELCOME TO MY WORLD</p>
-              <h2 class="my_name">HI, I'M Jayed Hossain</h2>
-              <div class="showing-skills">
-                <h2>
-                  I have expertise in
-                  <span
-                    class="typed skills-type"
-                    data-typed-items="Software Engineer, Software Developer, DevOps Developer"
-                  >
+      {% if about_info %}
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="my_info">
+                <p>WELCOME TO MY WORLD</p>
+                <h2 class="my_name">HI, I'M {{ about_info.name }}</h2>
+                <div class="showing-skills">
+                  {% if about_info.expertise %}
+                    <h2>
+                      I have expertise in
+                      <span class="typed skills-type"
+                          data-typed-items="{{ expertise_list|join:', ' }}">
+                      </span>
+                    </h2>
+                  {% endif %}
+                </div>
+                <div class="short-info">
+                  <p>{{ about_info.description|safe }} </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="hire-me">
+                    <div class="d-grid gap-2">
+                      <a href="#contact" class="hire-me-btn"> Hire Me </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="my-resume">
+                    <div class="d-grid gap-2">
+                      {% if about.resume %}
+                        <a href="{{ about_info.resume.url }}" class="resumeBtn">
+                          <i class="fas fa-link"></i> My RESUME
+                        </a>
+                      {% else %} 
+                        <a href="#" class="resumeBtn">
+                          <i class="fas fa-link"></i> My RESUME
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="social-link">
+                    <ul class="list-unstyled d-flex gap-2">
+                      <li class="my-social">
+                        {% if about_info.facebook_link %}
+                          <a href="{{ about_info.facebook_link }}">
+                            <i class="fab fa-facebook"></i>
+                          </a>
+                        {% else %}
+                          
+                        {% endif %}
+                      </li>
+                      <li class="my-social">
+                        {% if about_info.linkedin_link %}
+                          <a href="{{ about_info.linkedin_link }}">
+                            <i class="fab fa-linkedin"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-linkedin"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                      <li class="my-social">
+                        {% if about_info.instagram_link %}
+                          <a href="{{ about_info.instagram_link }}">
+                            <i class="fab fa-instagram"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-instagram"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                      <li class="my-social">
+                        {% if about_info.github_link %}
+                          <a href="{{ about_info.github_link }}">
+                            <i class="fab fa-github"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-github"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="my_image">
+                {% if about_info.profile_text %}
+                  <span class="hello-message">
+                    <i class="fas fa-smile hello-icon"></i>
+                    {{ about_info.profile_text }}
                   </span>
-                </h2>
+                {% else %}
+                  <span class="hello-message">
+                    <i class="fas fa-smile hello-icon"></i>
+                    Hey, Hello
+                  </span>
+                {% endif %}
+                <!-- Profile -->
+                {% if about_info.profile %}
+                  <img src="{{ about_info.profile.url }}" class="img-fluid" alt="img is missing"/>
+                {% else %}
+                  <img src="{% static "img/team/who.png" %}" class="img-fluid" alt="img is missing"/>
+                {% endif %}
               </div>
-              <div class="short-info">
-                <p>
-                  I am a software engineer, with passion lies in creating
-                  innovative solutions to complex problems. I specialize in
-                  developing high-quality software applications that meet the
-                  needs of clients and users alike.
-                </p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="hire-me">
-                  <div class="d-grid gap-2">
-                    <a href="#contact" class="hire-me-btn"> Hire Me </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="my-resume">
-                  <div class="d-grid gap-2">
-                    <a href="/resume/jayed's Resume.pdf" class="resumeBtn">
-                      <i class="fas fa-link"></i> My RESUME
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="social-link">
-                  <ul class="list-unstyled d-flex gap-2">
-                    <li class="my-social">
-                      <a href="https://www.facebook.com/jibon969">
-                        <i class="fab fa-facebook"></i>
-                      </a>
-                    </li>
-                    <li class="my-social">
-                      <a href="https://www.linkedin.com/in/jibon969/">
-                        <i class="fab fa-linkedin"></i>
-                      </a>
-                    </li>
-                    <li class="my-social">
-                      <a href="#"><i class="fab fa-instagram"></i></a>
-                    </li>
-                    <li class="my-social">
-                      <a href="https://github.com/jibon969/">
-                        <i class="fab fa-github"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="my_image">
-              <span class="hello-message">
-                <i class="fas fa-smile hello-icon"></i>
-                Hey, Hello
-              </span>
-              <img src="{% static "img/team/jibon.png" %}" class="img-fluid" alt="img is missing"/>
             </div>
           </div>
         </div>
-      </div>
+      {% else %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h5 class="my_name text-center">No About Me info available.</h5>
+              <hr>
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </section>
 
     <!--About Me-->
@@ -101,67 +149,44 @@
         <div class="row">
           <div class="col-md-6 mb-3">
             <div class="who-iam-img">
-              <img
-                src="{% static "img/team/who.png" %}" alt="img is missing" class="img-fluid animated-person"
-                style="height: 340px"/>
+              {% if skills.image %}
+                <img src="{{ skills.image.url }}" 
+                  alt="img is missing" 
+                  class="img-fluid animated-person"
+                  style="height: 340px"/>
+              {% else %}
+                <img src="{% static "img/team/who.png" %}" 
+                  alt="img is missing" 
+                  class="img-fluid animated-person"
+                  style="height: 340px"/>
+              {% endif %}
             </div>
             <div class="professional-focus">
               <h5 class="professional-title">
                 Professional Focus & Key Skills
               </h5>
-              <ul class="focus-list">
-                <li class="mb-2">Backend Development with Python & Django</li>
-                <li class="mb-2">
-                  RESTful API Design with Django REST Framework
-                </li>
-                <li class="mb-2">
-                  Database Modeling & Optimization (PostgreSQL, MySQL)
-                </li>
-                <li class="mb-2">Scalable Web Application Architecture</li>
-                <li class="mb-2">Automation & Scripting with Python</li>
-              </ul>
+              {% if key_skills_list %}
+                <ul class="focus-list">
+                  {% for skill in key_skills_list %}
+                    <li class="mb-2">{{ skill }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <ul class="focus-list">
+                  <li class="mb-2">No Skills available</li>
+                </ul>
+              {% endif %}
             </div>
           </div>
           <div class="col-md-6 mb-3">
-            <div class="about-details">
-              <p>
-                As a software developer, my mission is to build innovative and
-                scalable web and mobile applications using modern technologies
-                like Python, JavaScript, and React, while applying DevOps
-                practices for efficient deployment and management.
-              </p>
-              <hr />
-              <p>
-                Currently working as a Software Engineer and Strategy Specialist
-                at Belasea Ecommerce Operations, where I develop and maintain
-                the ecommerce platform, analyze data to optimize operations,
-                automate reporting systems, and support data-driven
-                decision-making. I also led the development of the Belasea
-                ecommerce system and streamlined data workflows to improve
-                accuracy and operational efficiency.
-              </p>
-              <hr />
-              <p>
-                As a Lead Software Engineer at Belaface, I mentor teams by
-                teaching Advanced Python and Django, and by integrating
-                technologies such as REST APIs, Celery, and PostgreSQL to build
-                scalable and efficient web applications.
-              </p>
-              <hr />
-              <p>
-                With a BSc in Software Engineering from Daffodil International
-                University, I combine a strong academic foundation with
-                practical experience in software development and machine
-                learning algorithms.
-              </p>
-              <hr />
-              <p class="mb-4">
-                My goal is to continuously expand my knowledge and expertise in
-                Python development while contributing meaningfully to software
-                engineering and data-driven solutions through innovative
-                projects and clean, efficient code.
-              </p>
-            </div>
+              <div class="about-details">
+                {% for about in about_details %}
+                  <p>{{ about.description }}</p>
+                {% if not forloop.last %}
+                    <hr/>
+                  {% endif %}
+                {% endfor %}
+              </div>
           </div>
         </div>
       </div>
@@ -179,182 +204,45 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mb-4">
-            <div class="card job-card">
-              <div class="card-header job-card-header">
-                <div class="d-flex align-items-center">
-                  <h4 class="rounded border">
-                    <img
-                      src="{% static "img/logo/belasea.png" %}"
-                      class="job-card-img img-fluid"
-                      alt="img is missing"
-                    />
-                  </h4>
-                  <div class="ms-3">
-                    <h5 class="mb-1">Belasea</h5>
-                    <p class="mb-1">Software Engineer</p>
-                    <p class="mb-0">07/2019 - Present</p>
+          {% for exp in experience %}
+            <div class="col-md-6 mb-4">
+              <div class="card job-card">
+                <div class="card-header job-card-header">
+                  <div class="d-flex align-items-center">
+                    <h4 class="rounded border">
+                      {% if exp.company_logo %}
+                        <img src="{{ exp.company_logo.url }}"
+                            class="job-card-img img-fluid"
+                            alt="img is missing"
+                        />
+                      {% else %}
+                        <img
+                          src="{% static "img/logo/belasea.png" %}"
+                          class="job-card-img img-fluid"
+                          alt="img is missing"
+                        />
+                      {% endif %}
+                      
+                    </h4>
+                    <div class="ms-3">
+                      <h5 class="mb-1">{{ exp.company_name }}</h5>
+                      <p class="mb-1">{{ exp.position }}</p>
+                      <p class="mb-0">{{ exp.duration_date }} - Present</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="job-card-body">
-                <ul>
-                  <li class="mb-2">
-                    Designed and implemented RESTful APIs using Django REST
-                    Framework for scalable web services.
-                  </li>
-                  <li class="mb-2">
-                    Collaborated with cross-functional teams to deliver
-                    high-impact features within Agile sprints.
-                  </li>
-                  <li class="mb-2">
-                    Optimized SQL queries and database indexes to improve
-                    application performance by 40%.
-                  </li>
-                  <li class="mb-2">
-                    Implemented CI/CD pipelines using GitHub Actions and Docker
-                    to automate testing and deployment.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="card job-card">
-              <div class="card-header job-card-header">
-                <div class="d-flex align-items-center">
-                  <h4 class="rounded border">
-                    <img
-                      src="img/logo/belaface.png"
-                      class="job-card-img img-fluid"
-                      alt="img is missing"
-                    />
-                  </h4>
-                  <div class="ms-3">
-                    <h5 class="mb-1">Belasea</h5>
-                    <p class="mb-1">Software Engineer</p>
-                    <p class="mb-0">07/2019 - Present</p>
-                  </div>
+                <div class="job-card-body">
+                  <ul>
+                    {% for item in exp.description_list %}
+                      <li class="mb-2">
+                        {{ item }}
+                      </li>
+                    {% endfor %}
+                  </ul>
                 </div>
               </div>
-              <div class="job-card-body">
-                <ul>
-                  <li class="mb-2">
-                    Designed and implemented RESTful APIs using Django REST
-                    Framework for scalable web services.
-                  </li>
-                  <li class="mb-2">
-                    Collaborated with cross-functional teams to deliver
-                    high-impact features within Agile sprints.
-                  </li>
-                  <li class="mb-2">
-                    Optimized SQL queries and database indexes to improve
-                    application performance by 40%.
-                  </li>
-                  <li class="mb-2">
-                    Implemented CI/CD pipelines using GitHub Actions and Docker
-                    to automate testing and deployment.
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <h3 class="resume-title">Sumary</h3>
-            <div class="resume-item pb-0">
-              <h4>Jayed Hossain</h4>
-              <p>
-                <em>
-                  Innovative and deadline-driven Software Engineer with 5+ years
-                  of experience building and deploying scalable web applications
-                  and APIs using Python and Django, from initial concept to
-                  final, production-ready solutions.
-                </em>
-              </p>
-              <ul>
-                <li>Eastern Kamalapur Complex - Dhaka, Bangladesh</li>
-                <li>+88 019871-32107</li>
-                <li>jayed.swe@gmail.com</li>
-              </ul>
-            </div>
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>Bachelor of Science in Software Engineering</h4>
-              <h5>Apr 2015 - Dec 2018</h5>
-              <p><em>Daffodil International University</em></p>
-              <p>
-                Gained strong foundations in programming, software design,
-                databases, and web development with hands-on project experience.
-                Completed coursework in algorithms, data structures, and
-                software engineering best practices. Led team-based academic
-                projects, focusing on building scalable and maintainable web
-                applications.
-              </p>
-            </div>
-            <div class="resume-item">
-              <h4>learning ES2018</h4>
-              <h5>ES2018</h5>
-              <p>
-                <em
-                  >I am learning ES2018 and beyond for writing cleaner
-                  codes.</em
-                >
-              </p>
-              <p>
-                I am enhancing my JavaScript skills by learning ES2018 and
-                beyond to write cleaner and more maintainable code.
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <h3 class="resume-title">Previous Experience</h3>
-            <div class="resume-item">
-              <h4>Senior Software Developer</h4>
-              <h5>Jan 2019 — Feb 2020</h5>
-              <p><em>Prairie Western College | Calgary, Canada</em></p>
-              <ul>
-                <li>
-                  Led the design, development, and implementation of graphic,
-                  layout, and production communication materials.
-                </li>
-                <li>
-                  Developed an online educational platform using Python and
-                  Django, enabling students to register and faculty to access
-                  academic resources, manage coursework.
-                </li>
-                <li>
-                  Implemented robust security measures to prevent CSRF,
-                  cross-site scripting, and cookie-jacking, ensuring a secure
-                  user experience.
-                </li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Freelancer</h4>
-              <h5>Full Stack Developer | Remote, Contract</h5>
-              <p><em>June 2015 — Aug 2018</em></p>
-              <ul>
-                <li>
-                  Took the lead on web development projects within team
-                  collaborations, guiding project direction and execution.
-                </li>
-                <li>
-                  Worked with 10+ international clients with more than 10
-                  projects from countries like UK, Canada occasionally
-                </li>
-                <li>
-                  Improved and increased website’s performance by optimizing
-                  page speeds around 30-50%
-                </li>
-                <li>
-                  Focused on clients' problems rather than just doing what they
-                  said, that's why they hired me.
-                </li>
-              </ul>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -477,7 +365,7 @@
                           </li>
                         {% endfor %}
                       </ul>
-                      <div class="text-end mb-3">
+                      <div class="text-end mt-4 mb-2">
                         <a href="#contact" class="defaultBtn">Connect Me</a>
                       </div>
                     </div>
@@ -721,7 +609,7 @@
             <!-- Contact Form -->
             <div class="col-12 col-md-6 mb-4">
               <div class="write-message p-4 h-100">
-                <form action="#" method="post">
+                <form action="#" method="POST">
                   {% csrf_token %}
                   <div class="row">
                     <div class="col">
@@ -775,8 +663,8 @@
                       rows="4"
                       class="form-control"
                       placeholder="Write Your Message ..."
-                      required
-                    ></textarea>
+                      required>
+                    </textarea>
                   </div>
                   <div class="d-grid gap-2">
                     <button type="submit" class="defaultBtn">

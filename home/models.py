@@ -1,5 +1,61 @@
 from django.db import models
 
+
+class AboutInfo(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
+    expertise = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(max_length=210, blank=True, null=True)
+    resume = models.ImageField(upload_to="about_me/", blank=True, null=True)
+
+    facebook_link = models.URLField("Facebook URL", blank=True, null=True)
+    linkedin_link = models.URLField("LinkedIn URL", blank=True, null=True)
+    github_link = models.URLField("GitHub URL", blank=True, null=True)
+    instagram_link = models.URLField("Instagram URL", blank=True, null=True)
+    profile = models.ImageField(upload_to="about_me/", blank=True, null=True)
+    profile_text = models.CharField(max_length=20, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) 
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.name or "Unnamed Profile"
+    
+
+class About(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    image = models.ImageField(upload_to="about/", blank=True, null=True)
+    key_skills = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title or "Untitled About Section"
+
+
+class AboutDetails(models.Model):
+    about = models.ForeignKey(About, on_delete=models.CASCADE, related_name='details')
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.description
+
+class Experience(models.Model): 
+    company_name = models.CharField(max_length=100, blank=True, null=True)
+    position = models.CharField(max_length=100, blank=True, null=True)
+    company_logo = models.ImageField(upload_to="experience/", blank=True, null=True)
+    duration_date = models.DateField()
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.position} at {self.company_name}" if self.position else self.company_name
+
+
 class Project(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="projects/", blank=True, null=True)

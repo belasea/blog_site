@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} Jayed Hossain Jibon {% endblock title %}</title>
 
-    <link rel="shortcut icon" href="{% static "img/favicon/favicon.ico" %} %}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{% static "img/favicon/favicon.ico" %}" type="image/x-icon"/>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Nunito:300,400,600,700|Poppins:300,400,500,600,700" rel="stylesheet"/>
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
@@ -62,7 +62,7 @@
       <div class="header">
         <nav class="headerBackground navbar navbar-expand-lg navbar-dark">
           <div class="container">
-            <a href="#" class="navbar-brand">Jayed Hossain</a>
+            <a href="{% url 'home' %}" class="navbar-brand">Jayed Hossain</a>
             <button
               type="button"
               class="navbar-toggler"
@@ -73,7 +73,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
               <div class="navbar-nav">
-                <a href="index.html" class="navItem nav-item nav-link text-white">Home</a>
+                <a href="{% url 'home' %}" class="navItem nav-item nav-link text-white">Home</a>
                 <a href="#about" class="navItem nav-item nav-link text-white">
                   About
                 </a>
@@ -88,8 +88,7 @@
                 </a>
                 <a href="#services" class="navItem nav-item nav-link text-white">
                   Services
-                </a
-                >
+                </a>
                 <a href="#blog" class="navItem nav-item nav-link text-white">
                   Blog
                 </a>
