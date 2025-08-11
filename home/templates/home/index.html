@@ -399,139 +399,94 @@
             API design, database management with SQL, and more.
           </p>
         </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-6">
-            <div class="my_blog">
-              <div class="blog_img position-relative">
-                <img
-                  src="img/blog/push.webp"
-                  alt="team-image"
-                  class="img-fluid rounded"
-                />
-                <ul class="social list-inline">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-instagram"></i>
-                    </a>
-                  </li>
-                </ul>
+        {% if blog %}
+          <div class="row">
+            {% for b in blog %}
+              <div class="col-md-4 col-sm-6">
+                <div class="my_blog">
+                  <div class="blog_img position-relative">
+                    {% if b.image %}
+                      <img
+                        src="{{ b.image.url }}"
+                        alt="team-image"
+                        class="img-fluid rounded"
+                      />
+                    {% else %}
+                      <img
+                        src="img/blog/android.jpg"
+                        alt="team-image"
+                        class="img-fluid rounded"
+                      />
+                    {% endif %}
+                    <ul class="social list-inline">
+                      <li class="list-inline-item">
+                        {% if b.facebook_url %}
+                          <a href="{{ b.facebook_url }}">
+                            <i class="fab fa-facebook"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-facebook"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                      <li class="list-inline-item">
+                        {% if b.twitter_url %}
+                          <a href="{{ b.twitter_url }}">
+                            <i class="fab fa-twitter"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-twitter"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                      <li class="list-inline-item">
+                        {% if b.linkedin_url %}
+                          <a href="{{ b.linkedin_url }}">
+                            <i class="fab fa-linkedin"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-linkedin"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                      <li class="list-inline-item">
+                        {% if b.instagram_url %}
+                          <a href="{{ b.instagram_url }}">
+                            <i class="fab fa-instagram"></i>
+                          </a>
+                        {% else %}
+                          <a href="#">
+                            <i class="fab fa-instagram"></i>
+                          </a>
+                        {% endif %}
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="blog_content mt-3">
+                    <h5 class="blog_content_title">
+                      <a href="{% url 'blog-detail' b.slug %}">
+                         {{ b.blog_title }}
+                      </a>
+                    </h5>
+                    <p class="post">
+                      {{ b.description|truncatechars:50|safe }}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="blog_content mt-3">
-                <h5 class="blog_content_title">
-                  <a href="blog.html">Push Notifications</a>
-                </h5>
-                <p class="post">
-                  Adding push Notifications with Firebase messaging and Notifee
-                  in React Native.
-                </p>
-              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="row">
+            <div class="col">
+              <h4 class="text-center my-3">No blog available</h4>
+              <hr>
             </div>
           </div>
-          <div class="col-md-4 col-sm-6">
-            <div class="my_blog">
-              <div class="blog_img position-relative">
-                <img
-                  src="img/blog/Django-NGINX-Proxy.webp"
-                  alt="team-image"
-                  class="img-fluid rounded"
-                />
-                <ul class="social list-inline">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-instagram"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="blog_content mt-3">
-                <h5 class="blog_content_title">Django Deployment</h5>
-                <p class="post">
-                  How to deploy a Django project on Ubuntu 18.04 with Digital
-                  Ocean Droplet
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6">
-            <div class="my_blog">
-              <div class="blog_img position-relative">
-                <img
-                  src="img/blog/android.jpg"
-                  alt="team-image"
-                  class="img-fluid rounded"
-                />
-                <ul class="social list-inline">
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-facebook"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-linkedin"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-instagram"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="blog_content mt-3">
-                <h5 class="blog_content_title">
-                  Releasing New Update on Android
-                </h5>
-                <p class="post">
-                  Publishing the latest update for Android using React Native
-                  CLI.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="text-center">
-              <a href="" class="defaultBtn">Read More Blog</a>
-            </div>
-          </div>
-        </div>
+        {% endif %}
       </div>
     </section>
 
@@ -579,10 +534,8 @@
                 </div>
                 <div class="col-12 col-sm-6 mb-4">
                   <div class="phone-box p-3 h-100">
-                    <i
-                      class="fa fa-phone fa-3x mb-3 text-danger"
-                      aria-hidden="true"
-                    >
+                    <i class="fa fa-phone fa-3x mb-3 text-danger"
+                      aria-hidden="true">
                     </i>
                     <h5>Call</h5>
                     <p><a href="tel:019871-32107"> +88 019871-32107</a></p>
@@ -609,7 +562,7 @@
             <!-- Contact Form -->
             <div class="col-12 col-md-6 mb-4">
               <div class="write-message p-4 h-100">
-                <form action="#" method="POST">
+                <form action="{% url 'home' %}" method="POST">
                   {% csrf_token %}
                   <div class="row">
                     <div class="col">

@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class AboutInfo(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     expertise = models.CharField(max_length=200, blank=True, null=True)
@@ -55,7 +54,6 @@ class Experience(models.Model):
     def __str__(self):
         return f"{self.position} at {self.company_name}" if self.position else self.company_name
 
-
 class Project(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
@@ -70,8 +68,6 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title or "Untitled Project"
-
-
 
 class MyService(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
@@ -91,3 +87,4 @@ class ServiceItem(models.Model):
 
     def __str__(self):
         return self.description
+

@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
+    'blog.apps.BlogConfig',
     'contacts.apps.ContactsConfig',
     'notification.apps.NotificationConfig',
     # Default Apps
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party library
+    'django.contrib.humanize',
     'import_export',
+    'django_summernote',
 ]
 
 # Custom User Model

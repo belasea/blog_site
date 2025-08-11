@@ -24,11 +24,14 @@ urlpatterns = [
     path('', include('home.urls')),
     path('', include('contacts.urls')),
     path('', include('notification.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    
 
 
 admin.site.site_header = "Blog Admin Panel"

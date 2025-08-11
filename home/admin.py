@@ -6,8 +6,11 @@ from .models import (
     Project, 
     MyService, 
     ServiceItem,
-    Experience
+    Experience,
 )
+
+
+
 
 @admin.register(AboutInfo)
 class AboutInfoAdmin(admin.ModelAdmin):
@@ -45,3 +48,4 @@ class ServiceItemAdmin(admin.ModelAdmin):
     list_display = ('my_service', 'description')
     list_filter = ('my_service',)
     list_per_page = 10
+
