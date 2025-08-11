@@ -28,7 +28,7 @@ class BlogForm(forms.ModelForm):
             'image',
             'facebook_url',
             'instagram_url',
-            'twitter_url',
+            'github_url',
             'linkedin_url',
             'description',
         ]

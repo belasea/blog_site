@@ -52,7 +52,7 @@ class Blog(models.Model):
     image = models.FileField(upload_to="blog/")
     facebook_url = models.URLField(blank=True, null=True, max_length=50)
     instagram_url = models.URLField(blank=True, null=True, max_length=50)
-    twitter_url = models.URLField(blank=True, null=True, max_length=50)
+    github_url = models.URLField(blank=True, null=True, max_length=50)
     linkedin_url = models.URLField(blank=True, null=True, max_length=50)
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(null=True, blank=True, max_length=50)

@@ -119,73 +119,99 @@
     <!--== Footer Section ==-->
     <footer class="footer-section">
       <div class="container">
-        <div class="row">
-          <!-- About + Social -->
-          <div class="col-lg-4 col-sm-6">
-            <div class="singleFooterWidget">
-              <p>
-                I'm always happy to hear from you. If you have any questions,
-                suggestions or opinions, please do not hesitate to reach out to
-                me.
-              </p>
-              <ul class="list-unstyled">
-                <li class="socialMedia list-inline-item">
-                  <a href="https://www.facebook.com/jibon969">
-                    <i class="fab fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="socialMedia list-inline-item">
-                  <a href="https://www.linkedin.com/in/jibon969/">
-                    <i class="fab fa-linkedin"></i>
-                  </a>
-                </li>
-                <li class="socialMedia list-inline-item">
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                </li>
-                <li class="socialMedia list-inline-item">
-                  <a href="https://github.com/jibon969/">
-                    <i class="fab fa-github"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+        {% if footer %}
+          {% for f in footer %}
+            <div class="row">
+              <!-- About + Social -->
+              <div class="col-lg-4 col-sm-6">
+                <div class="singleFooterWidget">
+                  <p>{{ f.description }}</p>
+                  <ul class="list-unstyled">
+                    <li class="socialMedia list-inline-item">
+                      {% if f.facebook_url %}
+                        <a href="{{ f.facebook_url }}">
+                          <i class="fab fa-facebook"></i>
+                        </a>
+                      {% else %}
+                        <a href="#">
+                          <i class="fab fa-facebook"></i>
+                        </a>
+                      {% endif %}
+                    </li>
+                    <li class="socialMedia list-inline-item">
+                      {% if f.linkedin_url %}
+                        <a href="{{ f.linkedin_url }}">
+                          <i class="fab fa-linkedin"></i>
+                        </a>
+                      {% else %}
+                        <a href="#">
+                          <i class="fab fa-linkedin"></i>
+                        </a>
+                      {% endif %}
+                    </li>
+                    <li class="socialMedia list-inline-item">
+                      {% if f.instagram_url %}
+                        <a href="{{ f.instagram_url }}">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                      {% else %}
+                        <a href="#">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                      {% endif %}
+                    </li>
+                    <li class="socialMedia list-inline-item">
+                      {% if f.github_url %}
+                        <a href="{{ f.github_url }}">
+                          <i class="fab fa-github"></i>
+                        </a>
+                      {% else %}
+                        <a href="#">
+                          <i class="fab fa-github"></i>
+                        </a>
+                      {% endif %}
+                    </li>
+                  </ul>
+                </div>
+              </div>
 
-          <!-- Explore -->
-          <div class="col-lg-2 col-sm-6">
-            <div class="singleFooterWidget pl-5">
-              <h3>Explore</h3>
-              <ul class="footerLinksList">
-                <li><a href="/home.html">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-              </ul>
-            </div>
-          </div>
+              <!-- Explore -->
+              <div class="col-lg-2 col-sm-6">
+                <div class="singleFooterWidget pl-5">
+                  <h3>Explore</h3>
+                  <ul class="footerLinksList">
+                    <li><a href="/home.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                  </ul>
+                </div>
+              </div>
 
-          <!-- Resources -->
-          <div class="col-lg-2 col-sm-6">
-            <div class="singleFooterWidget">
-              <h3>Resources</h3>
-              <ul class="footerLinksList">
-                <li><a href="#services">My Services</a></li>
-                <li><a href="#blog">My Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
+              <!-- Resources -->
+              <div class="col-lg-2 col-sm-6">
+                <div class="singleFooterWidget">
+                  <h3>Resources</h3>
+                  <ul class="footerLinksList">
+                    <li><a href="#services">My Services</a></li>
+                    <li><a href="#blog">My Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Address -->
+              <div class="col-lg-4 col-sm-6">
+                <div class="singleFooterWidget">
+                  <h3>Address</h3>
+                  <ul class="footerLinksList">
+                    <li>{{ f.address }}</li>
+                    <li>Email: {{ f.email }}</li>
+                    <li>Phone: <a href="{{f.phone}}">{{f.phone}}/a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
-          <!-- Address -->
-          <div class="col-lg-4 col-sm-6">
-            <div class="singleFooterWidget">
-              <h3>Address</h3>
-              <ul class="footerLinksList">
-                <li>Eastern Kamalapur Complex - Dhaka, Bangladesh</li>
-                <li>Email: jayed.swe@gmail.com</li>
-                <li>Phone: <a href="+88 0198-7132107">+88 0198-7132107</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          {% endfor %}
+        {% endif %}
         <!-- Bottom Bar -->
         <div class="footerBottomArea">
           <div class="row align-items-center">
