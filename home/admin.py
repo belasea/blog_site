@@ -7,9 +7,25 @@ from .models import (
     MyService, 
     ServiceItem,
     Experience,
+    Footer,
+    Header
 )
 
 
+@admin.register(Header)
+class HeaderAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'timestamp', 'update')
+    search_fields = ('name', 'phone', 'email')
+    list_filter = ('timestamp', 'update')
+    ordering = ('-timestamp',)
+
+
+@admin.register(Footer)
+class FooterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'phone', 'email', 'timestamp', 'update')
+    search_fields = ('title', 'phone', 'email')
+    list_filter = ('timestamp', 'update')
+    ordering = ('-timestamp',)
 
 
 @admin.register(AboutInfo)

@@ -89,7 +89,22 @@ class ServiceItem(models.Model):
         return self.description
 
 
+class Header(models.Model):
+    name = models.CharField(max_length=250)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    facebook_url = models.URLField(max_length=120, blank=True, null=True)
+    github_url = models.URLField(max_length=120, blank=True, null=True)
+    linkedin_url = models.URLField(max_length=120, blank=True, null=True)
+    instagram_url = models.URLField(max_length=120, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['-timestamp']
 
 class Footer(models.Model):
     title = models.CharField(max_length=250)
