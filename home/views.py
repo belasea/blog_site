@@ -1,53 +1,69 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from blog_site.local_settings import BASE_URL
+from django.contrib import messages
 from notification.models import Notification
 from blog.models import Blog
 from blog.forms import CommentForm
+from contacts.models import ContactInfo
 from contacts.forms import ContactForm
 from .models import (
-    AboutInfo, 
-    About, 
-    AboutDetails, 
-    Experience, 
-    Project,  
-    MyService
+    MyInfo, About, AboutDetail, 
+    Experience, Project, MyService
 )
-from django.contrib import messages
-# Create your views here.
+
 
 def home(request):
-    about_info = AboutInfo.objects.order_by('-updated_at').first()
+    """
+    Render the home page with personal information, projects, services,
+    skills, experiences, recent blog posts, and a contact form.
+
+    - Retrieves the latest `MyInfo` record for about info.
+    - Fetches contact information and available services.
+    - Retrieves all projects and the latest 4 blog posts.
+    - Splits `expertise` and `key_skills` fields into lists for display.
+    - Loads about details and work experiences, splitting experience
+      descriptions into line-by-line lists.
+    - Handles contact form submission:
+        - Saves the contact message.
+        - Creates a notification for the user.
+        - Displays a success message.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered "home/index.html" page.
+    """
+    about_info = MyInfo.objects.order_by('-updated_at').first()
+    contact_info = ContactInfo.objects.first()
     services = MyService.objects.prefetch_related('items').all()
     projects = Project.objects.all()
     blog = Blog.objects.order_by('-timestamp')[:4]
-
 
     # Split expertise into a list (handles None safely)
     expertise_list = []
     if about_info and about_info.expertise:
         expertise_list = [skill.strip() for skill in about_info.expertise.split(',')]
-    
 
-    # Split expertise into a list (handles None safely)
+    # Split key skills into a list (handles None safely)
     skills = About.objects.first()
     key_skills_list = []
     if skills and skills.key_skills:
         key_skills_list = [skill.strip() for skill in skills.key_skills.split(',')]
-    
-    about_details = AboutDetails.objects.all()
 
+    about_details = AboutDetail.objects.all()
 
+    # Process experience descriptions into line-separated lists
     experience = Experience.objects.all()
-    # For each experience, split the description into lines
     for exp in experience:
         if exp.description:
-            exp.description_list = [line.strip() for line in exp.description.strip().split('\n')
-             if line.strip()]
-    
+            exp.description_list = [
+                line.strip() for line in exp.description.strip().split('\n') if line.strip()
+            ]
 
     form = ContactForm(request.POST or None)
     errors = None
-    
+
     if request.method == 'POST':
         if form.is_valid():
             subject = form.cleaned_data['subject']
@@ -56,12 +72,10 @@ def home(request):
             # Create a notification for the user
             notification_message = f'Created : {subject}'
             try:
-                # Set the appropriate link if needed
                 link = BASE_URL + "/contact-list"
             except:
                 link = None
-            notification = Notification(user=request.user, message=notification_message, link=link)
-            notification.save()
+            Notification.objects.create(user=request.user, message=notification_message, link=link)
             return redirect('home')
         else:
             errors = form.errors
@@ -75,32 +89,48 @@ def home(request):
         'key_skills_list': key_skills_list,
         'about_details': about_details,
         'experience': experience,
-        # 'description_list': experience
         'blog': blog,
         'form': form,
-        'errors': errors
+        'errors': errors,
+        'contact_info': contact_info,
     }
     return render(request, "home/index.html", context)
 
 
 def blog_detail(request, slug):
+    """
+    Display a detailed view of a single blog post, along with recent posts and comments.
+
+    - Retrieves the blog post matching the provided slug.
+    - Loads the 3 most recent blog posts for sidebar display.
+    - Fetches approved comments for the current post.
+    - Handles new comment submission:
+        - Validates and saves the comment.
+        - Associates it with the current post.
+        - Shows a success message.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        slug (str): The slug of the blog post to display.
+
+    Returns:
+        HttpResponse: The rendered "blog/details.html" page.
+    """
     post = get_object_or_404(Blog, slug=slug)
     recent_post = Blog.objects.all().order_by('-timestamp')[:3]
     comments = post.comments.filter(approve=True)
     new_comment = None
-    # Comment posted
+
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
-            # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
             new_comment.post = post
-            # Save the comment to the database
             messages.add_message(request, messages.SUCCESS, "Comment successfully sent, Thanks")
             new_comment.save()
     else:
         comment_form = CommentForm()
+
     context = {
         'object': post,
         'recent_post': recent_post,
@@ -109,4 +139,3 @@ def blog_detail(request, slug):
         'comment_form': comment_form,
     }
     return render(request, "blog/details.html", context)
-

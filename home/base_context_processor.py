@@ -1,6 +1,7 @@
-from home.models import Footer
+from home.models import Header, Footer
 
 def base_renderer(request):
     return {
-       'footer': Footer.objects.all()[:1]
+        'header': Header.objects.order_by('-timestamp').first(),
+        'footer': Footer.objects.order_by('-timestamp').first()
     }

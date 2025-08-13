@@ -5,7 +5,9 @@
 
 {% block content %}
 
-    <!--Home-->
+    <!--==========================
+            Home Section
+    ============================-->
     <section id="home">
       {% if about_info %}
         <div class="container">
@@ -39,8 +41,8 @@
                 <div class="col-md-4">
                   <div class="my-resume">
                     <div class="d-grid gap-2">
-                      {% if about.resume %}
-                        <a href="{{ about_info.resume.url }}" class="resumeBtn">
+                      {% if about_info.resume %}
+                        <a href="{{ about_info.resume.url }}" target="_blank" class="resumeBtn">
                           <i class="fas fa-link"></i> My RESUME
                         </a>
                       {% else %} 
@@ -128,7 +130,7 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <h5 class="my_name text-center">No About Me info available.</h5>
+              <h5 class="my_name text-center">No info available.</h5>
               <hr>
             </div>
           </div>
@@ -136,197 +138,260 @@
       {% endif %}
     </section>
 
-    <!--About Me-->
-    <section id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="about-title">
-              <h3 class="about-me">About Me</h3>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <div class="who-iam-img">
-              {% if skills.image %}
-                <img src="{{ skills.image.url }}" 
-                  alt="img is missing" 
-                  class="img-fluid animated-person"
-                  style="height: 340px"/>
-              {% else %}
-                <img src="{% static "img/team/who.png" %}" 
-                  alt="img is missing" 
-                  class="img-fluid animated-person"
-                  style="height: 340px"/>
-              {% endif %}
-            </div>
-            <div class="professional-focus">
-              <h5 class="professional-title">
-                Professional Focus & Key Skills
-              </h5>
-              {% if key_skills_list %}
-                <ul class="focus-list">
-                  {% for skill in key_skills_list %}
-                    <li class="mb-2">{{ skill }}</li>
-                  {% endfor %}
-                </ul>
-              {% else %}
-                <ul class="focus-list">
-                  <li class="mb-2">No Skills available</li>
-                </ul>
-              {% endif %}
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-              <div class="about-details">
-                {% for about in about_details %}
-                  <p>{{ about.description }}</p>
-                {% if not forloop.last %}
-                    <hr/>
-                  {% endif %}
-                {% endfor %}
-              </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!--Experience-->
-    <div id="experience">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="experience-title">
-              <h2 class="main-title">Professional Experience</h2>
-              <p>My journey in Python Developer and technology education</p>
+    <!--==========================
+            About Me Section
+    ============================-->
+    <section id="about">
+      {% if about_info %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="about-title">
+                <h3 class="about-me">About Me</h3>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          {% for exp in experience %}
-            <div class="col-md-6 mb-4">
-              <div class="card job-card">
-                <div class="card-header job-card-header">
-                  <div class="d-flex align-items-center">
-                    <h4 class="rounded border">
-                      {% if exp.company_logo %}
-                        <img src="{{ exp.company_logo.url }}"
-                            class="job-card-img img-fluid"
-                            alt="img is missing"
-                        />
-                      {% else %}
-                        <img
-                          src="{% static "img/logo/belasea.png" %}"
-                          class="job-card-img img-fluid"
-                          alt="img is missing"
-                        />
-                      {% endif %}
-                      
-                    </h4>
-                    <div class="ms-3">
-                      <h5 class="mb-1">{{ exp.company_name }}</h5>
-                      <p class="mb-1">{{ exp.position }}</p>
-                      <p class="mb-0">{{ exp.duration_date }} - Present</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="job-card-body">
-                  <ul>
-                    {% for item in exp.description_list %}
-                      <li class="mb-2">
-                        {{ item }}
-                      </li>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="who-iam-img">
+                {% if skills.image %}
+                  <img src="{{ skills.image.url }}" 
+                    alt="img is missing" 
+                    class="img-fluid animated-person"
+                    style="height: 340px"/>
+                {% else %}
+                  <img src="{% static "img/team/who.png" %}" 
+                    alt="img is missing" 
+                    class="img-fluid animated-person"
+                    style="height: 340px"/>
+                {% endif %}
+              </div>
+              <div class="professional-focus">
+                <h5 class="professional-title">
+                  Professional Focus & Key Skills
+                </h5>
+                {% if key_skills_list %}
+                  <ul class="focus-list">
+                    {% for skill in key_skills_list %}
+                      <li class="mb-2">{{ skill }}</li>
                     {% endfor %}
                   </ul>
-                </div>
+                {% else %}
+                  <ul class="focus-list">
+                    <li class="mb-2">No Skills available</li>
+                  </ul>
+                {% endif %}
               </div>
             </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-
-    <!--=== Projects ===-->
-    <section id="projects">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="project-title text-center">
-              <h2 class="main-title">My Projects</h2>
-              <p class="mb-4">
-                Explore my portfolio of Python projects, showcasing expertise in
-                Python programming for automation and web development.<br />
-                Experienced in using libraries and frameworks like Django, and
-                Flask.
-              </p>
+            <div class="col-md-6 mb-3">
+              {% if about_details %}
+                <div class="about-details">
+                  {% for about in about_details %}
+                    <p>{{ about.description }}</p>
+                  {% if not forloop.last %}
+                      <hr/>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% else %}
+                <div class="about-details">
+                  <p>No details available</p>
+                </div>
+              {% endif %}
             </div>
           </div>
         </div>
-        <div class="show-project">
+      {% else %}
+        <div class="container">
           <div class="row">
-            <!-- Belasea -->
-            {% for project in projects %}
-              <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm project-card">
-                  {% if project.image %}
-                     <img src="{{ project.image.url }}" class="project-img img-fluid"
-                      data-bs-toggle="modal"
-                      data-bs-target="#imageModal"
-                      data-bs-image="{{ project.image.url }}"
-                      alt="{{ project.title }}">
-                  {% endif %}
-                  <div class="card-body pb-3 mt-1">
-                    <div class="project-description">
-                      <h5>
-                        {% if project.url_link %}
-                          <a href="{{ project.url_link }}" target="_blank">View Project</a>
+            <div class="col">
+              <div class="text-center">
+                <h2 class="main-title">No about me available</h2>
+                <p>Loading ....</p>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </section>
+
+    <!--==========================
+          Experience Section
+    ============================-->
+    <div id="experience">
+      {% if experience %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="experience-title">
+                <h2 class="main-title">Professional Experience</h2>
+                <p>My journey in Python Developer and technology education</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            {% for exp in experience %}
+              <div class="col-md-6 mb-4">
+                <div class="card job-card">
+                  <div class="card-header job-card-header">
+                    <div class="d-flex align-items-center">
+                      <h4 class="rounded border">
+                        {% if exp.company_logo %}
+                          <img src="{{ exp.company_logo.url }}"
+                              class="job-card-img img-fluid"
+                              alt="img is missing"
+                          />
                         {% else %}
-                          <a href="#" target="_blank">
-                            {{ project.title }}
-                          </a>
+                          <img
+                            src="{% static "img/logo/belasea.png" %}"
+                            class="job-card-img img-fluid"
+                            alt="img is missing"
+                          />
                         {% endif %}
-                      </h5>
+                        
+                      </h4>
+                      <div class="ms-3">
+                        <h5 class="mb-1">{{ exp.company_name }}</h5>
+                        <p class="mb-1">{{ exp.position }}</p>
+                        <p class="mb-0">{{ exp.duration_date }} - Present</p>
+                      </div>
                     </div>
+                  </div>
+                  <div class="job-card-body">
+                    <ul>
+                      {% for item in exp.description_list %}
+                        <li class="mb-2">
+                          {{ item }}
+                        </li>
+                      {% endfor %}
+                    </ul>
                   </div>
                 </div>
               </div>
             {% endfor %}
           </div>
-          <div
-            class="modal fade"
-            id="imageModal"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div
-                class="modal-content position-relative bg-white border-0 rounded-3 overflow-hidden"
-              >
-                <!-- Close button (white background helps visibility) -->
-                <button
-                  type="button"
-                  class="btn-close position-absolute top-0 end-0 m-3"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  style="z-index: 1055"
-                ></button>
-                <div class="modal-body p-0">
-                  <img
-                    src=""
-                    class="img-fluid w-100"
-                    id="modalImage"
-                    alt="Preview"
-                  />
+        </div>
+      {% else %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="text-center">
+                <h2 class="main-title">
+                  No experience available
+                </h2>
+                <p>Loading ....</p>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+
+    <!--==========================
+          Projects Section
+    ============================-->
+    <section id="projects">
+      {% if projects %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="project-title text-center">
+                <h2 class="main-title">My Projects</h2>
+                <p class="mb-4">
+                  Explore my portfolio of Python projects, showcasing expertise in
+                  Python programming for automation and web development.<br />
+                  Experienced in using libraries and frameworks like Django, and
+                  Flask.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="show-project">
+            <div class="row">
+              <!-- Belasea -->
+              {% for project in projects %}
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100 shadow-sm project-card">
+                    {% if project.image %}
+                      <img src="{{ project.image.url }}" class="project-img img-fluid"
+                        data-bs-toggle="modal"
+                        data-bs-target="#imageModal"
+                        data-bs-image="{{ project.image.url }}"
+                        alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body pb-3 mt-1">
+                      <div class="project-description">
+                        <h5>
+                          {% if project.url_link %}
+                            <a href="{{ project.url_link }}" target="_blank">
+                              {{ project.title }}
+                            </a>
+                          {% else %}
+                            <a href="#" target="_blank">
+                              {{ project.title }}
+                            </a>
+                          {% endif %}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div
+              class="modal fade"
+              id="imageModal"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div
+                  class="modal-content position-relative bg-white border-0 rounded-3 overflow-hidden"
+                >
+                  <!-- Close button (white background helps visibility) -->
+                  <button
+                    type="button"
+                    class="btn-close position-absolute top-0 end-0 m-3"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    style="z-index: 1055"
+                  ></button>
+                  <div class="modal-body p-0">
+                    <img
+                      src=""
+                      class="img-fluid w-100"
+                      id="modalImage"
+                      alt="Preview"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      {% else%}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="text-center">
+                <h2 class="main-title">No project available</h2>
+                <p>Loading ....</p>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </section>
 
-    <!--==== services ===-->
+
+    <!--==========================
+          Services Section
+    ============================-->
     <section id="services">
       {% if services %}
         <div class="container">
@@ -379,8 +444,11 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <p class="text-center">No services found.</p>
-              <hr>
+              <div class="text-center">
+                <h2 class="main-title">No services available</h2>
+                <p>Loading ....</p>
+                <hr>
+              </div>
             </div>
           </div>
         </div>
@@ -388,18 +456,20 @@
     </section>
 
 
-    <!--===Blog ===-->
+    <!--==========================
+        Blog Section
+    ============================-->
     <section id="blog">
-      <div class="container">
-        <div class="blog-title-container">
-          <h2 class="main-title">My Blog</h2>
-          <p class="blog_sub_title">
-            Explore my blog featuring Python, Django, and Django REST Framework
-            projects, showcasing expertise in backend development, <br/>
-            API design, database management with SQL, and more.
-          </p>
-        </div>
-        {% if blog %}
+      {% if blog %}
+        <div class="container">
+          <div class="blog-title-container">
+            <h2 class="main-title">My Blog</h2>
+            <p class="blog_sub_title">
+              Explore my blog featuring Python, Django, and Django REST Framework
+              projects, showcasing expertise in backend development, <br/>
+              API design, database management with SQL, and more.
+            </p>
+          </div>
           <div class="row">
             {% for b in blog %}
               <div class="col-md-4 col-sm-6">
@@ -468,7 +538,7 @@
                   <div class="blog_content mt-3">
                     <h5 class="blog_content_title">
                       <a href="{% url 'blog-detail' b.slug %}">
-                         {{ b.blog_title }}
+                          {{ b.blog_title }}
                       </a>
                     </h5>
                     <p class="post">
@@ -479,157 +549,193 @@
               </div>
             {% endfor %}
           </div>
-        {% else %}
+        </div>
+      {% else %}
+        <div class="container">
           <div class="row">
             <div class="col">
-              <h4 class="text-center my-3">No blog available</h4>
-              <hr>
+              <div class="text-center">
+                <h2 class="main-title">No blog available</h2>
+                <p>Loading ....</p>
+                <hr>
+              </div>
             </div>
           </div>
-        {% endif %}
-      </div>
+        </div>
+      {% endif %}
     </section>
 
-    <!--=== Contact Section ====-->
+
+    <!--==========================
+        Contact Section
+    ============================-->
     <section id="contact">
-      <div class="container">
-        <div class="contact-title mb-5">
-          <h2 class="main-title fw-bold">Got Questions? I've Got Answers</h2>
-          <p>
-            Your email address will not be published. Required fields are marked
-            *
-          </p>
-        </div>
-        <div class="address">
-          <div class="row">
-            <!-- Address Block -->
-            <div class="col-12 col-md-6 mb-4">
-              <div class="contact-address p-3 h-100">
-                <i
-                  class="fa fa-map-marker fa-3x mb-3 text-primary"
-                  aria-hidden="true"
-                ></i>
-                <h4>Our Address</h4>
-                <p class="mb-2">
-                  Eastern Kamalapur Complex - Dhaka, Bangladesh
-                </p>
-              </div>
-            </div>
-            <!-- Email & Phone Blocks -->
-            <div class="col-12 col-md-6">
-              <div class="row">
-                <div class="col-12 col-sm-6 mb-4">
-                  <div class="email-box p-3 h-100">
-                    <i
-                      class="fa fa-envelope fa-3x mb-3 text-success"
-                      aria-hidden="true"
-                    ></i>
-                    <h5>E-mail</h5>
-                    <p>
-                      <a href="mailto:jayed.swe@gmail.com"
-                        >jayed.swe@gmail.com</a
-                      >
-                    </p>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6 mb-4">
-                  <div class="phone-box p-3 h-100">
-                    <i class="fa fa-phone fa-3x mb-3 text-danger"
-                      aria-hidden="true">
-                    </i>
-                    <h5>Call</h5>
-                    <p><a href="tel:019871-32107"> +88 019871-32107</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {% if contact_info %}
+        <div class="container">
+          <div class="contact-title mb-5">
+            <h2 class="main-title fw-bold">
+              Got Questions? I've Got Answers
+            </h2>
+            <p>
+              Your email address will not be published. Required fields are marked
+              *
+            </p>
           </div>
-          <!-- Map -->
-          <div class="row">
-            <!-- Google Map -->
-            <div class="col-12 col-md-6 mb-4">
-              <div class="google-map h-100">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.4521028732247!2d90.42527631018355!3d23.73125221362765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x47fc03bc903dfe0!2sEastern+Commercial+Complex!5e0!3m2!1sen!2sbd!4v1564505983152!5m2!1sen!2sbd"
-                  class="w-100 rounded"
-                  height="360"
-                  frameborder="0"
-                  allowfullscreen
-                >
-                </iframe>
+          <div class="address">
+            <div class="row">
+              <!-- Address Block -->
+              <div class="col-12 col-md-6 mb-4">
+                <div class="contact-address p-3 h-100">
+                  <i class="fa fa-map-marker fa-3x mb-3 text-primary"
+                    aria-hidden="true">
+                  </i>
+                  <h4>Our Address</h4>
+                  <p class="mb-2">
+                    {{ contact_info.address }}
+                  </p>
+                </div>
+              </div>
+              <!-- Email & Phone Blocks -->
+              <div class="col-12 col-md-6">
+                <div class="row">
+                  <div class="col-12 col-sm-6 mb-4">
+                    <div class="email-box p-3 h-100">
+                      <i
+                        class="fa fa-envelope fa-3x mb-3 text-success"
+                        aria-hidden="true">
+                      </i>
+                      <h5>E-mail</h5>
+                      <p>
+                        <a href="mailto:{{ contact_info.email }}">
+                          {{ contact_info.email }}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6 mb-4">
+                    <div class="phone-box p-3 h-100">
+                      <i class="fa fa-phone fa-3x mb-3 text-danger"
+                        aria-hidden="true">
+                      </i>
+                      <h5>Call</h5>
+                      <p>
+                        <a href="tel:{{ contact_info.phone }}">
+                          {{ contact_info.phone }}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <!-- Contact Form -->
-            <div class="col-12 col-md-6 mb-4">
-              <div class="write-message p-4 h-100">
-                <form action="{% url 'home' %}" method="POST">
-                  {% csrf_token %}
-                  <div class="row">
-                    <div class="col">
-                      <div class="mb-3">
+            <!-- Map -->
+            <div class="row">
+              <!-- Google Map -->
+              <div class="col-12 col-md-6 mb-4">
+                <div class="google-map h-100">
+                  {% if contact_info.google_map_embed_url %}
+                    <iframe
+                      src="{{ contact_info.google_map_embed_url }}"
+                      class="w-100 rounded"
+                      height="360"
+                      frameborder="0"
+                      allowfullscreen>
+                    </iframe>
+                  {% else %}
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.4521028732247!2d90.42527631018355!3d23.73125221362765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x47fc03bc903dfe0!2sEastern+Commercial+Complex!5e0!3m2!1sen!2sbd!4v1564505983152!5m2!1sen!2sbd"
+                        class="w-100 rounded"
+                        height="360"
+                        frameborder="0"
+                        allowfullscreen>
+                    </iframe>
+                  {% endif %}
+                </div>
+              </div>
+              <!-- Contact Form -->
+              <div class="col-12 col-md-6 mb-4">
+                <div class="write-message p-4 h-100">
+                  <form action="{% url 'home' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <input
+                            type="text"
+                            name="subject"
+                            class="form-control"
+                            placeholder="Subject"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Full Name"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <input
+                          type="email"
+                          name="email"
+                          class="form-control"
+                          placeholder="E-mail"
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6 mb-3">
                         <input
                           type="text"
-                          name="subject"
+                          name="phone"
                           class="form-control"
-                          placeholder="Subject"
+                          placeholder="Phone"
                           required
                         />
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <div class="mb-3">
-                        <input
-                          type="text"
-                          name="name"
-                          class="form-control"
-                          placeholder="Full Name"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <input
-                        type="email"
-                        name="email"
+                    <div class="mb-3">
+                      <textarea
+                        name="message"
+                        rows="4"
                         class="form-control"
-                        placeholder="E-mail"
-                        required
-                      />
+                        placeholder="Write Your Message ..."
+                        required>
+                      </textarea>
                     </div>
-                    <div class="col-md-6 mb-3">
-                      <input
-                        type="text"
-                        name="phone"
-                        class="form-control"
-                        placeholder="Phone"
-                        required
-                      />
+                    <div class="d-grid gap-2">
+                      <button type="submit" class="defaultBtn">
+                        <i class="fa fa-paper-plane mx-2"></i>Send Message
+                      </button>
                     </div>
-                  </div>
-                  <div class="mb-3">
-                    <textarea
-                      name="message"
-                      rows="4"
-                      class="form-control"
-                      placeholder="Write Your Message ..."
-                      required>
-                    </textarea>
-                  </div>
-                  <div class="d-grid gap-2">
-                    <button type="submit" class="defaultBtn">
-                      <i class="fa fa-paper-plane mx-2"></i>Send Message
-                    </button>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      {% else %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="text-center">
+                <h2 class="main-title">No contact available</h2>
+                <p>Loading ....</p>
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </section>
 
 

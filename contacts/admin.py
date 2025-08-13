@@ -1,10 +1,8 @@
 from django.contrib import admin
-
-# Register your models here.
-from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import Contact, ReplayContact
+from .models import Contact, ContactInfo, ReplayContact
+
 
 
 # Contact CSV import and Export ============================================================
@@ -22,6 +20,13 @@ class ContactAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Contact, ContactAdmin)
+
+
+@admin.register(ContactInfo)
+class ContactInfoAdmin(admin.ModelAdmin):
+    list_display = ("email", "phone", "address") 
+    search_fields = ("email", "phone", "address")
+
 
 
 # ReplayContactAdmin Admin ============================================================

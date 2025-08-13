@@ -1,7 +1,7 @@
 import os
 import shutil
 
-root = 'E:/Project/Freelance-Projects/Blog/blog_site'
+root = '/Users/j.ahmed/coding/learn/project/blog-site/blog_site'
 
 # List of directories to delete
 directories_to_delete = ['__pycache__', 'migrations']

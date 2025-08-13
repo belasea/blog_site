@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import (
-    AboutInfo, 
+    MyInfo, 
     About, 
-    AboutDetails, 
+    AboutDetail, 
     Project, 
     MyService, 
     ServiceItem,
@@ -12,24 +12,8 @@ from .models import (
 )
 
 
-@admin.register(Header)
-class HeaderAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'email', 'timestamp', 'update')
-    search_fields = ('name', 'phone', 'email')
-    list_filter = ('timestamp', 'update')
-    ordering = ('-timestamp',)
-
-
-@admin.register(Footer)
-class FooterAdmin(admin.ModelAdmin):
-    list_display = ('title', 'phone', 'email', 'timestamp', 'update')
-    search_fields = ('title', 'phone', 'email')
-    list_filter = ('timestamp', 'update')
-    ordering = ('-timestamp',)
-
-
-@admin.register(AboutInfo)
-class AboutInfoAdmin(admin.ModelAdmin):
+@admin.register(MyInfo)
+class MyInfoAdmin(admin.ModelAdmin):
     list_display = ("name", "created_at", "updated_at")
     search_fields = ("name",)
 
@@ -38,10 +22,10 @@ class AboutAdmin(admin.ModelAdmin):
     list_display = ("title",)
     search_fields = ("title",)
 
-@admin.register(AboutDetails)
-class AboutDetailsAdmin(admin.ModelAdmin):
-    list_display = ("description", "about")
-    search_fields = ("description",)
+@admin.register(AboutDetail)
+class AboutDetailAdmin(admin.ModelAdmin):
+    list_display = ("about",)
+    search_fields = ("about",)
 
 
 @admin.register(Experience)
@@ -64,4 +48,18 @@ class ServiceItemAdmin(admin.ModelAdmin):
     list_display = ('my_service', 'description')
     list_filter = ('my_service',)
     list_per_page = 10
+
+
+@admin.register(Header)
+class HeaderAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'timestamp', 'update')
+    search_fields = ('name', 'phone', 'email')
+    ordering = ('-timestamp',)
+
+
+@admin.register(Footer)
+class FooterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'phone', 'email', 'timestamp', 'update')
+    search_fields = ('title', 'phone', 'email')
+    ordering = ('-timestamp',)
 
