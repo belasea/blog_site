@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.db.models.signals import pre_save
 from .utils import blog_unique_slug_generator
 # Create your models here.
@@ -46,7 +47,7 @@ pre_save.connect(sub_category_pre_save_receiver, sender=SubCategory)
 
 
 class Blog(models.Model):
-    blog_title = models.CharField(max_length=250, blank=True, null=True)
+    title = models.CharField(max_length=250, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.FileField(upload_to="blog/")
@@ -60,18 +61,34 @@ class Blog(models.Model):
     update = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.blog_title
+        return self.title
 
     class Meta:
         ordering = ['-timestamp']
 
+    
+    def get_absolute_url(self):
+        return reverse('blog-detail', kwargs={'slug': self.slug})
+
 
 def blog_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = blog_unique_slug_generator(instance)
+    # Check if this is an existing instance
+    if instance.pk:
+        try:
+            old_instance = Blog.objects.get(pk=instance.pk)
+        except Blog.DoesNotExist:
+            old_instance = None
 
+        # If the title has changed, regenerate the slug
+        if old_instance and old_instance.title != instance.title:
+            instance.slug = blog_unique_slug_generator(instance)
+    else:
+        # New instance — always generate slug
+        if not instance.slug:
+            instance.slug = blog_unique_slug_generator(instance)
 
 pre_save.connect(blog_pre_save_receiver, sender=Blog)
+
 
 
 class Comment(models.Model):

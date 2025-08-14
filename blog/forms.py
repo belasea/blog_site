@@ -22,7 +22,7 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = [
-            'blog_title',
+            'title',
             'category',
             'sub_category',
             'image',

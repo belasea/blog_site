@@ -5,11 +5,178 @@
 
 {% block content %}
 
+
+
+    <section class="blog-details">
+        <div class="container">
+            <h2 class="text-center mb-4 fw-bold">Blog Details</h2>
+            <hr class="mb-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="blog-content">
+                        <div class="card">
+                            <!--========================== 
+                                image 
+                            ============================-->
+                            <div class="card-img">
+                                {% if object.image %}
+                                    <img class="img-fluid" src="{{ object.image.url }}" alt="Oops image is missing" style="width: 100%">
+                                {% else %}
+                                    <img class="img-fluid" src="{% static "images/blog/no-photo.png" %} %}" alt="Oops image is missing">
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <div class="blog-description">
+                                    <h3 class="blog-details-title mb-2">
+                                        {{ object.blog_title }}
+                                    </h3>
+                                    <div class="text-muted small mb-3">
+                                        <span class="text-dark fw-bold">Posted On</span> {{ object.timestamp }}
+                                    </div>
+                                    <!--========================== 
+                                            Category & comment 
+                                    ============================-->
+                                    <div class="categoryComment">
+                                        <ul class="list-inline my-3">
+                                            <li class="list-inline-item">
+                                                <a href="{% url 'category-detail' object.category.slug %}">
+                                                    <i class="fas fa-book"></i> 
+                                                    {{ object.category.title }}
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item"><a href="#">|</a></li>
+                                            <li class="list-inline-item">
+                                                <a href="#"><i class="fa fa-comments"></i>
+                                                    {{ comments.count }} comments
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <hr>
+                                    <p class="card-text card_text_design">
+                                        {{ object.description|safe }}
+                                    </p>
+                                </div>
+                                <!--========================== 
+                                        comments
+                                ============================-->
+                                <div class="comment-list">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h4>{{ comments.count }} comments</h4>
+                                            {% for comment in comments %}
+                                                <div class="comments" style="padding: 10px;">
+                                                    <p class="font-weight-bold">
+                                                        {{ comment.name }}
+                                                        <span class=" text-muted font-weight-normal">
+                                                            {{ comment.created_on }}
+                                                        </span>
+                                                    </p>
+                                                    {{ comment.body | linebreaks }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                 <!--========================== 
+                                        comments Form
+                                ============================-->
+                                <div class="comment-form">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            {% if new_comment %}
+                                                <div class="alert alert-success" role="alert">
+                                                    Your comment is awaiting moderation
+                                                </div>
+                                            {% else %}
+                                                <h3 class="mb-3">Leave a comment</h3>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <input type="text" name="name" placeholder="Please enter your name *" class="form-control" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <input type="email" name="email" placeholder="Please enter e-mail address" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form">
+                                                        <div class="col mb-3">
+                                                            <textarea class="form-control" name="body" rows="4" placeholder="Enter your comment"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-grid gap-2">
+                                                        <button type="submit" class="defaultBtn">Submit</button>
+                                                    </div>
+                                                </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm mb-4">
+                        <h4 class="card-header">All Categories</h4>
+                        <div class="card-body pb-0">
+                            <ul class="list-unstyled mb-0">
+                                {% for category in categories %}
+                                    <li class="mb-2">
+                                        <a href="{% url 'category-detail' category.slug %}" class="text-decoration-none">
+                                            {{ category.title }}
+                                        </a>
+                                    </li>
+                                {% empty %}
+                                    <li>No categories found.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="related-post mt-4">
+                        {% if recent_post %}
+                            <h4>Related Post</h4>
+                            <hr>
+                            {% for r in recent_post %}
+                                <div class="card shadow-sm mb-4">
+                                    <a href="{% url 'blog-detail' r.slug %}">
+                                        {% if r.image.url %}
+                                            <img src="{{ r.image.url }}" alt="Extra blog image" class="sidebar-img img-fluid">
+                                        {% else %}
+                                            <img src="{% static 'images/blog/og-fox-news.webp' %}" alt="Extra blog image" class="img-fluid">
+                                        {% endif %}
+                                    </a>
+                                    <div class="card-body">
+                                        <h5 class="card-title card-link text-capitalize">
+                                            <a href="{% url 'blog-detail' r.slug %}">
+                                                {{ r.blog_title|truncatechars:35 }}
+                                            </a>
+                                        </h5>
+                                        <p class="card-text text-muted">
+                                        Posted On {{ r.timestamp }}
+                                        </p>
+                                        <a href="{% url 'blog-detail' r.slug %}" class="btn btn-sm btn-outline-primary">
+                                            Read More
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No Related available</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="blogDetails">
         <div class="container">
-            <h3 class="text-center my-2">Details Page</h3>
-            <hr>
-            <div class="row-sm">
+            <h2 class="text-center mb-4 fw-bold">Blog Details</h2>
+            <hr class="mb-5">
+            <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="feature-img">
@@ -22,33 +189,35 @@
                         <div class="card-body">
                             <div class="blogProductSection">
                                 <div class="blog_details">
-                                    <h4>{{ object.blog_title }}</h4>
-                                    <h5 class="text-muted">{{ object.timestamp }}</h5>
-                                    <!--- Category & comment --->
+                                    <h3 class="blog-details-title mb-2">{{ object.blog_title }}</h3>
+                                    <div class="text-muted small mb-3">
+                                        <span class="text-dark fw-bold">Posted On</span> {{ object.timestamp }}
+                                    </div>
+                                    <!-- Category & comment -->
                                     <div class="categoryComment">
                                         <ul class="list-inline my-3">
                                             <li class="list-inline-item">
-                                                <a href="#"><i class="fa fa-user"></i> {{ object.category.title }}</a>
+                                                <a href="#">
+                                                    <i class="fas fa-book"></i> 
+                                                    {{ object.category.title }}
+                                                </a>
                                             </li>
                                             <li class="list-inline-item"><a href="#">|</a></li>
                                             <li class="list-inline-item">
-                                                <a href="#"><i class="fa fa-comments"></i> {{ comments.count }} comments</a>
+                                                <a href="#"><i class="fa fa-comments"></i>
+                                                    {{ comments.count }} comments
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="socialShare my-3">
-                                        <div class="btn-group white">
-                                            <a class="btn btn-facebook" title="Facebook" target="_blank" href="#"><i class="fa fa-facebook-f  fa-fw"></i></a>
-                                            <a class="btn btn-instagram" title="Instagram" target="_blank" href="#"><i class="fa fa-instagram  fa-fw"></i></a>
-                                            <a class="btn btn-youtube" title="Youtube" target="_blank" href="#"><i class="fa fa-youtube  fa-fw"></i></a>
-                                            <a class="btn btn-twitter" title="Twitter" target="_blank" href="#"><i class="fa fa-twitter  fa-fw"></i></a>
-                                        </div>
-                                    </div>
-                                    <p class="card-text card_text_design">{{ object.description|safe }}</p>
+                                    <hr>
+                                    <p class="card-text card_text_design">
+                                        {{ object.description|safe }}
+                                    </p>
                                 </div>
                                 <div class="productSection">
                                     <hr>
-                                    <div class="row-sm">
+                                    <div class="row">
                                         {% for product in object_list %}
                                             <div class="col-md-3 mb-4">
                                                 <figure class="card">
@@ -73,7 +242,7 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <!----- Comment ---->
+                                <!-- Comment -->
                                 <div class="card mb-3">
                                     <div class="card-body">
                                         <h4>{{ comments.count }} comments</h4>
@@ -90,7 +259,7 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <!--- Comment Form --->
+                                <!-- Comment Form -->
                                 <div class="card">
                                     <div class="card-body">
                                         {% if new_comment %}
@@ -101,7 +270,7 @@
                                             <h3 class="mb-3">Leave a comment</h3>
                                             <form method="post">
                                                 {% csrf_token %}
-                                                <div class="form-row">
+                                                <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <input type="text" name="name" placeholder="Please enter your name *" class="form-control" required>
                                                     </div>
@@ -109,12 +278,14 @@
                                                         <input type="email" name="email" placeholder="Please enter e-mail address" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="form-row">
+                                                <div class="form">
                                                     <div class="col mb-3">
                                                         <textarea class="form-control" name="body" rows="4" placeholder="Enter your comment"></textarea>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" class="defaultBtn">Submit</button>
+                                                </div>
                                             </form>
                                         {% endif %}
                                     </div>
@@ -123,41 +294,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card mb-3">
-                        <div class="card-header h4">
-                            Related Post
-                        </div>
-                        <div class="card-body">
-                             {% for r in recent_post %}
-                                 <div class="row-sm">
-                                    <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
-                                        <a href="{% url 'blog-detail' r.slug %}">
-                                            {% if r.image.url %}
-                                                <img src="{{ r.image.url }}" alt="Oops image not found" class="img-fluid img-responsive img-thumbnail">
-                                            {% else %}
-                                                <img src="{% static 'images/blog/og-fox-news.webp' %}" alt="Oops image not found" class="img-fluid img-responsive img-thumbnail">
-                                            {% endif %}
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7">
-                                        <ul class="list-unstyled">
-                                            <li class="mb-2">
-                                                <a href="{% url 'blog-detail' r.slug %}" class="card-title card-link text-capitalize">{{ r.title|truncatechars:35 }}</a>
-                                            </li>
-                                            <li>
-                                                <small class="card-title my-1">{{ r.timestamp }}</small>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                 </div>
-                            {% endfor %}
+                <div class="col-md-4">
+                    <div class="card shadow-sm mb-4">
+                        <h4 class="card-header">
+                            Category List
+                        </h4>
+                        <div class="card-body pb-0">
+                            <ul>
+                                <li class="mb-2"><a href="">Python</a></li>
+                                <li class="mb-2"><a href="">Python</a></li>
+                            </ul>
                         </div>
                     </div>
+
+<h4 >
+                            Related Post
+                        </h4>
+                        <hr>
+                         
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="margin_bottom"></div>
+   
 {% endblock content %}

@@ -20,10 +20,10 @@ class SubCategoryAdmin(admin.ModelAdmin):
 @admin.register(Blog)
 class BlogAdmin(SummernoteModelAdmin):
     summernote_fields = ('description',)  # Summernote editor
-    list_display = ('blog_title', 'category', 'sub_category', 'timestamp', 'update')
-    search_fields = ('blog_title', 'category__title', 'sub_category__title')
+    list_display = ('title', 'category', 'sub_category', 'timestamp', 'update')
+    search_fields = ('title', 'category__title', 'sub_category__title')
     list_filter = ('category', 'sub_category', 'timestamp')
-    prepopulated_fields = {'slug': ('blog_title',)}
+    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(Comment)

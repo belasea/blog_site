@@ -2,13 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from blog_site.local_settings import BASE_URL
 from django.contrib import messages
 from notification.models import Notification
-from blog.models import Blog
+from blog.models import Blog, Category
 from blog.forms import CommentForm
 from contacts.models import ContactInfo
 from contacts.forms import ContactForm
 from .models import (
-    MyInfo, About, AboutDetail, 
-    Experience, Project, MyService
+    MyInfo, 
+    About, 
+    AboutDetail, 
+    Experience, 
+    Project, 
+    MyService
 )
 
 
@@ -97,6 +101,10 @@ def home(request):
     return render(request, "home/index.html", context)
 
 
+def skills(request):
+    return render(request, "home/skills.html") 
+
+
 def blog_detail(request, slug):
     """
     Display a detailed view of a single blog post, along with recent posts and comments.
@@ -117,7 +125,16 @@ def blog_detail(request, slug):
         HttpResponse: The rendered "blog/details.html" page.
     """
     post = get_object_or_404(Blog, slug=slug)
+
+    # 3 most recent posts (already in your code)
     recent_post = Blog.objects.all().order_by('-timestamp')[:3]
+
+    # Get posts from the same category (excluding the current one)
+    related_posts = Blog.objects.filter(
+        category=post.category
+    ).exclude(id=post.id)[:4]  # Limit to 4 related posts
+    # All categories for sidebar
+    categories = Category.objects.all().order_by('title')
     comments = post.comments.filter(approve=True)
     new_comment = None
 
@@ -134,8 +151,28 @@ def blog_detail(request, slug):
     context = {
         'object': post,
         'recent_post': recent_post,
+        'related_posts': related_posts,
+        'categories': categories,
         'comments': comments,
         'new_comment': new_comment,
         'comment_form': comment_form,
     }
     return render(request, "blog/details.html", context)
+
+
+def category_detail(request, slug):
+    # Get the category
+    category = get_object_or_404(Category, slug=slug)
+
+    # Get all blogs in this category
+    blogs = Blog.objects.filter(category=category)
+
+    # Optionally, get all categories for sidebar/navigation
+    categories = Category.objects.all()
+
+    context = {
+        'category': category,
+        'blogs': blogs,
+        'categories': categories,  # pass all categories
+    }
+    return render(request, "blog/category_detail.html", context)

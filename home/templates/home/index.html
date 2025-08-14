@@ -488,61 +488,35 @@
                         class="img-fluid rounded"
                       />
                     {% endif %}
-                    <ul class="social list-inline">
-                      <li class="list-inline-item">
-                        {% if b.facebook_url %}
-                          <a href="{{ b.facebook_url }}">
-                            <i class="fab fa-facebook"></i>
+                    <!--============= Social Media ==============-->
+                    {% with request.build_absolute_uri as full_url %}
+                      <ul class="social list-inline">
+                        <li class="list-inline-item">
+                          <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url }}" target="_blank">
+                              <i class="fab fa-facebook-f"></i>
                           </a>
-                        {% else %}
-                          <a href="#">
-                            <i class="fab fa-facebook"></i>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="https://api.whatsapp.com/send?text={{ object.title }} - {{ full_url }}" target="_blank" >
+                              <i class="fab fa-whatsapp"></i>
                           </a>
-                        {% endif %}
-                      </li>
-                      <li class="list-inline-item">
-                        {% if b.github_url %}
-                          <a href="{{ b.github_url }}">
-                            <i class="fab fa-twitter"></i>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ full_url }}" target="_blank">
+                              <i class="fab fa-linkedin-in"></i>
                           </a>
-                        {% else %}
-                          <a href="#">
-                            <i class="fab fa-twitter"></i>
-                          </a>
-                        {% endif %}
-                      </li>
-                      <li class="list-inline-item">
-                        {% if b.linkedin_url %}
-                          <a href="{{ b.linkedin_url }}">
-                            <i class="fab fa-linkedin"></i>
-                          </a>
-                        {% else %}
-                          <a href="#">
-                            <i class="fab fa-linkedin"></i>
-                          </a>
-                        {% endif %}
-                      </li>
-                      <li class="list-inline-item">
-                        {% if b.instagram_url %}
-                          <a href="{{ b.instagram_url }}">
-                            <i class="fab fa-instagram"></i>
-                          </a>
-                        {% else %}
-                          <a href="#">
-                            <i class="fab fa-instagram"></i>
-                          </a>
-                        {% endif %}
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    {% endwith %}
                   </div>
                   <div class="blog_content mt-3">
                     <h5 class="blog_content_title">
                       <a href="{% url 'blog-detail' b.slug %}">
-                          {{ b.blog_title }}
+                          {{ b.title }}
                       </a>
                     </h5>
                     <p class="post">
-                      {{ b.description|truncatechars:50|safe }}
+                      {{ b.timestamp }}
                     </p>
                   </div>
                 </div>
